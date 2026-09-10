@@ -1,0 +1,33 @@
+node_modules/
+dist/
+.vite/
+.wrangler/
+**/.wrangler/
+.env.local
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+
+# IDE / local machine
+.idea/
+*.iml
+android/local.properties
+android/**/local.properties
+
+# Android generated files
+android/.gradle/
+android/**/build/
+android/app/src/main/assets/public/
+android/capacitor-cordova-android-plugins/
+android-capacitor6-backup-*/
+
+# Signing credentials
+android/keystore.properties
+android/*.jks
+android/*.keystore
+
+# Release binaries
+store-assets/*.aab
+store-assets/*.apk

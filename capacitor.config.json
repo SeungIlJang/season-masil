@@ -1,0 +1,8 @@
+{
+  "appId": "com.seasonmasil.app",
+  "appName": "모두의 시즌마실",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

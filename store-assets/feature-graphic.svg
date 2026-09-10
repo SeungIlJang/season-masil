@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <rect width="1024" height="500" fill="#203329"/>
+  <circle cx="162" cy="250" r="118" fill="#f5f2e9"/>
+  <g transform="translate(8 96) scale(.3)">
+    <path d="M512 232c66 100 96 182 90 248 76-24 148-18 216 20-54 84-122 138-202 162 10 64-10 122-58 174-36-60-52-118-46-176-62 42-132 56-214 44 22-90 68-156 140-200-48-56-70-126-64-210 58 20 104 54 138 102 2-56 2-110 0-164Z" fill="#e76e50"/>
+    <circle cx="512" cy="512" r="86" fill="#203329"/>
+  </g>
+  <text x="330" y="220" fill="#f5f2e9" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="64" font-weight="700">모두의 시즌마실</text>
+  <text x="334" y="288" fill="#d8e2da" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="30">서울·경기의 계절 행사와 공공시설을 한곳에서</text>
+  <rect x="334" y="330" width="138" height="50" rx="25" fill="#e76e50"/>
+  <text x="403" y="364" text-anchor="middle" fill="#fff" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="23" font-weight="700">계절별 검색</text>
+  <rect x="488" y="330" width="138" height="50" rx="25" fill="#f5f2e9"/>
+  <text x="557" y="364" text-anchor="middle" fill="#203329" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="23" font-weight="700">공공데이터</text>
+</svg>

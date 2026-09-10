@@ -1,0 +1,34 @@
+{
+  "name": "season-public-guide",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "cap:sync": "./scripts/android-build.sh sync",
+    "android:run": "./scripts/android-build.sh run",
+    "android:apk": "./scripts/android-build.sh apk",
+    "android:aab": "./scripts/android-build.sh aab",
+    "android:check": "./scripts/android-build.sh check",
+    "release:verify": "./scripts/release-verify.sh",
+    "release:verify:production": "./scripts/release-verify.sh production",
+    "worker:dev": "npx wrangler dev --config worker/wrangler.jsonc",
+    "worker:deploy": "npx wrangler deploy --config worker/wrangler.jsonc"
+  },
+  "dependencies": {
+    "@capacitor-community/admob": "^8.1.0",
+    "@capacitor/browser": "^8.0.1",
+    "@capacitor/core": "^8.5.1",
+    "@capacitor/geolocation": "^8.2.2",
+    "@vitejs/plugin-vue": "latest",
+    "vite": "latest",
+    "vue": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/cli": "^8.5.1",
+    "vite-plugin-pwa": "^1.3.0"
+  }
+}
