@@ -32,7 +32,7 @@ export ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
 cd "$PROJECT_DIR"
 
 sync_android() {
-  npm run build
+  npm run build:native
   npx cap sync android
 }
 

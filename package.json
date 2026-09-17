@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "vite build && node scripts/build-live-update.mjs",
+    "build:native": "vite build",
     "preview": "vite preview --host 0.0.0.0",
     "cap:sync": "./scripts/android-build.sh sync",
     "android:run": "./scripts/android-build.sh run",
@@ -22,6 +23,7 @@
     "@capacitor/browser": "^8.0.1",
     "@capacitor/core": "^8.5.1",
     "@capacitor/geolocation": "^8.2.2",
+    "@capgo/capacitor-updater": "^8.51.16",
     "@vitejs/plugin-vue": "latest",
     "vite": "latest",
     "vue": "latest"
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@capacitor/android": "^8.5.1",
     "@capacitor/cli": "^8.5.1",
+    "archiver": "^7.0.1",
     "vite-plugin-pwa": "^1.3.0"
   }
 }
