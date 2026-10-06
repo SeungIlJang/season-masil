@@ -20,6 +20,7 @@
 - 웹/AAB 인증키 비포함 검사
 - 업로드 키 암호화 iCloud Drive 백업 및 복원 검증
 - AdMob 테스트 광고 통합 및 개인정보 동의 흐름 구현 (버전 1.1 / versionCode 2)
+- AdMob 운영 배너 광고 적용 및 전면 광고 제거 (버전 1.4 / versionCode 8)
 - 서울 구·경기도 시군 2단계 필터 및 기기 내 현재 위치 자동 설정 구현
 
 ## 외부 승인 또는 최종 결정 필요
@@ -27,7 +28,6 @@
 - Play Console에서 패키지 ID `com.seasonmasil.app` 최종 사용 가능 여부 확인
 - 실제 Android 기기 설치 테스트
 - Play Console 내부 테스트 업로드 및 사전 출시 보고서 확인
-- AdMob 앱 및 광고 단위 생성 후 운영 ID 설정
 - 광고가 반영된 개인정보처리방침 Worker 재배포
 
 ## 남은 순서

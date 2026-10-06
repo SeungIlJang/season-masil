@@ -37,7 +37,7 @@ npm run android:check
 
 ### AdMob 설정
 
-기본 빌드는 Google 공식 테스트 앱·광고 단위 ID를 사용하므로 실제 광고 수익이 발생하지 않습니다. AdMob에서 Android 앱, 적응형 배너, 전면 광고 단위를 만든 뒤 아래 값을 설정해야 운영 광고가 활성화됩니다.
+개발 빌드는 Google 공식 테스트 앱·배너 ID를 사용하고, 프로덕션 빌드는 앱에 설정된 운영 앱·배너 ID를 자동으로 사용합니다. 운영 ID를 임시로 덮어쓸 때만 아래 값을 설정합니다.
 
 ```bash
 export ADMOB_APP_ID='ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy'
@@ -47,8 +47,6 @@ export ADMOB_APP_ID='ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy'
 
 ```dotenv
 VITE_ADMOB_BANNER_ID=ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy
-VITE_ADMOB_INTERSTITIAL_ID=ca-app-pub-xxxxxxxxxxxxxxxx/zzzzzzzzzz
-VITE_ADMOB_TEST_MODE=false
 ```
 
 개발 기기에서는 실광고를 직접 클릭하지 않습니다. 출시 전에는 Play Console의 광고 포함 여부와 데이터 보안 응답을 갱신하고, 광고 내용이 반영된 공개 개인정보처리방침을 재배포합니다.
