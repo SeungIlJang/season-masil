@@ -19,13 +19,30 @@ const isAndroidApp = Capacitor.isNativePlatform() && Capacitor.getPlatform() ===
 
 let initialized = false
 
+// 제스처 바(홈 인디케이터) 높이. viewport-fit=cover 가 있어야 값이 잡힌다.
+const readBottomInset = () => {
+  const probe = document.createElement('div')
+  probe.style.cssText =
+    'position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);' +
+    'visibility:hidden;pointer-events:none'
+  document.body.appendChild(probe)
+  const inset = Math.round(probe.getBoundingClientRect().height)
+  probe.remove()
+  return inset
+}
+
+let bottomInset = 0
+
 const setBannerSpace = (height = 0) => {
-  document.documentElement.style.setProperty('--admob-banner-height', `${Math.max(0, height)}px`)
-  document.body.classList.toggle('admob-banner-visible', height > 0)
+  const total = height > 0 ? height + bottomInset : 0
+  document.documentElement.style.setProperty('--admob-banner-height', `${Math.max(0, total)}px`)
+  document.body.classList.toggle('admob-banner-visible', total > 0)
 }
 
 export const initializeAds = async () => {
   if (!isAndroidApp || initialized) return false
+
+  bottomInset = readBottomInset()
 
   try {
     await AdMob.initialize({
@@ -49,7 +66,7 @@ export const initializeAds = async () => {
       adId: bannerId,
       adSize: BannerAdSize.ADAPTIVE_BANNER,
       position: BannerAdPosition.BOTTOM_CENTER,
-      margin: 0,
+      margin: bottomInset,
       isTesting: !liveAdsEnabled,
     })
 
