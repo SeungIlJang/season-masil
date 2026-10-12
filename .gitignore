@@ -18,6 +18,7 @@ android/**/local.properties
 
 # Android generated files
 android/.gradle/
+android/.kotlin/
 android/**/build/
 android/app/src/main/assets/public/
 android/capacitor-cordova-android-plugins/

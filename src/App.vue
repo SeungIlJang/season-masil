@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import EventCard from './components/EventCard.vue'
 import { sampleEvents } from './data/sampleEvents'
 import { canonicalDistrictFor, DISTRICTS_BY_REGION } from './data/regions'
@@ -22,11 +22,23 @@ const favorites = ref(new Set(JSON.parse(localStorage.getItem('season-masil-favo
 const visibleCount = ref(24)
 const events = ref([])
 const loading = ref(true)
+const loadingSeconds = ref(0)
 const loadError = ref(false)
 const adPrivacyOptionsRequired = ref(false)
 const usingSamples = computed(() => !events.value.length)
+const loadingMessage = computed(() => {
+  if (loadingSeconds.value >= 8) return '공공기관 응답을 기다리고 있어요. 조금만 더 기다려 주세요.'
+  if (loadingSeconds.value >= 3) return '서울·경기 행사와 시설 정보를 모으고 있어요.'
+  return '최신 계절 정보를 불러오고 있어요.'
+})
+
+let loadingTimer
 
 onMounted(async () => {
+  loadingTimer = window.setInterval(() => {
+    loadingSeconds.value += 1
+  }, 1000)
+
   void initializeAds().then((required) => {
     adPrivacyOptionsRequired.value = required
   })
@@ -42,8 +54,11 @@ onMounted(async () => {
     console.error('공식 데이터 로드 실패:', error)
   } finally {
     loading.value = false
+    window.clearInterval(loadingTimer)
   }
 })
+
+onUnmounted(() => window.clearInterval(loadingTimer))
 
 const categories = computed(() => [
   '전체',
@@ -120,6 +135,19 @@ watch([selectedSeason, selectedRegion, selectedDistrict, priceLimit, selectedAct
 </script>
 
 <template>
+  <Transition name="loading-fade">
+    <div v-if="loading" class="loading-overlay" role="status" aria-live="polite" aria-atomic="true">
+      <div class="loading-panel">
+        <span class="loading-brand-mark" aria-hidden="true">모</span>
+        <p class="loading-kicker">MODU'S SEASON MASIL</p>
+        <h2>모두의 시즌마실</h2>
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <p class="loading-message">{{ loadingMessage }}</p>
+        <div class="loading-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </Transition>
+
   <div class="page-shell">
     <header class="site-header">
       <a class="brand" href="#" aria-label="모두의 시즌마실 홈">
@@ -129,7 +157,7 @@ watch([selectedSeason, selectedRegion, selectedDistrict, priceLimit, selectedAct
       <span class="beta">서울 · 경기 베타</span>
     </header>
 
-    <main>
+    <main :aria-busy="loading">
       <section class="hero">
         <p class="hero-kicker">MODU'S SEASON MASIL</p>
         <h1>
@@ -223,7 +251,7 @@ watch([selectedSeason, selectedRegion, selectedDistrict, priceLimit, selectedAct
           </div>
         </div>
 
-        <p v-if="loading" class="loading-state">서울·경기 공식 데이터를 불러오고 있습니다.</p>
+        <p v-if="loading" class="loading-state">{{ loadingMessage }}</p>
         <div v-else-if="filteredEvents.length" class="event-grid">
           <EventCard
             v-for="event in displayedEvents"
