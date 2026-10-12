@@ -22,7 +22,7 @@ const favorites = ref(new Set(JSON.parse(localStorage.getItem('season-masil-favo
 const visibleCount = ref(24)
 const events = ref([])
 const loading = ref(true)
-const loadError = ref('')
+const loadError = ref(false)
 const adPrivacyOptionsRequired = ref(false)
 const usingSamples = computed(() => !events.value.length)
 
@@ -35,9 +35,11 @@ onMounted(async () => {
   try {
     const payload = await fetchEvents()
     events.value = payload.events
-    loadError.value = payload.errors?.join(', ') || ''
+    loadError.value = Boolean(payload.errors?.length)
+    if (loadError.value) console.warn('일부 공식 데이터 출처 로드 실패:', payload.errors)
   } catch (error) {
-    loadError.value = error.message
+    loadError.value = true
+    console.error('공식 데이터 로드 실패:', error)
   } finally {
     loading.value = false
   }
@@ -234,11 +236,11 @@ watch([selectedSeason, selectedRegion, selectedDistrict, priceLimit, selectedAct
         </div>
         <p v-else class="empty-state">조건에 맞는 항목이 없습니다. 필터를 바꿔보세요.</p>
         <p v-if="usingSamples && !loading" class="data-notice">
-          공식 데이터 연결에 실패해 예시 항목을 표시하고 있습니다.<span v-if="loadError"> ({{ loadError }})</span>
+          공식 데이터 연결이 원활하지 않아 예시 항목을 표시하고 있습니다. 잠시 후 다시 시도해 주세요.
         </p>
         <p v-else-if="!loading" class="data-notice">
           TourAPI, 서울 열린데이터광장, 생활안전지도, 공유누리의 공식 정보를 표시합니다. 방문 전 제공기관 정보를 다시 확인하세요.
-          <span v-if="loadError"> 일부 출처를 불러오지 못했습니다: {{ loadError }}</span>
+          <span v-if="loadError"> 일부 출처의 정보는 일시적으로 표시되지 않을 수 있습니다.</span>
         </p>
         <p v-if="!loading" class="data-notice">
           본 앱은 정부기관 또는 공공기관을 대표하지 않으며, 각 카드의 ‘공식 원문’ 링크에서 제공기관의 최신 정보를 확인할 수 있습니다.
