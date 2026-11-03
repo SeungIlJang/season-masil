@@ -17,9 +17,9 @@ const liveAdsEnabled = import.meta.env.PROD && import.meta.env.VITE_ADMOB_TEST_M
 const bannerId = liveAdsEnabled ? configuredBannerId || PRODUCTION_BANNER_ID : TEST_BANNER_ID
 // ⚠️ 광고 전면 중단 (2026-11-03 ~ 2026-12-02 AdMob 계정 정지)
 // 무효 트래픽으로 정지됐고, 기간 중 추가 위반이면 영구 정지라 광고 요청 자체를 끊어 둔다.
-// 12/2 이후 되살리려면 ADS_BLACKOUT 를 false 로 바꿔 main 에 푸시하면 된다
+// 12/2 이후 되살리려면 ADS_ENABLED 를 true 로 바꿔 main 에 푸시하면 된다
 // (deploy-ota 워크플로가 OTA 번들을 자동 배포한다 — 앱 재심사 불필요).
-const ADS_BLACKOUT = true
+const ADS_ENABLED = false
 const isAndroidApp = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android'
 
 let initialized = false
@@ -45,7 +45,7 @@ const setBannerSpace = (height = 0) => {
 }
 
 export const initializeAds = async () => {
-  if (ADS_BLACKOUT) return false
+  if (!ADS_ENABLED) return false
   if (!isAndroidApp || initialized) return false
 
   bottomInset = readBottomInset()
