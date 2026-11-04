@@ -141,9 +141,15 @@ watch([selectedSeason, selectedRegion, selectedDistrict, priceLimit, selectedAct
         <span class="loading-brand-mark" aria-hidden="true">모</span>
         <p class="loading-kicker">MODU'S SEASON MASIL</p>
         <h2>모두의 시즌마실</h2>
-        <div class="loading-spinner" aria-hidden="true"></div>
+        <div
+          class="loading-progress"
+          role="progressbar"
+          aria-label="시즌마실 데이터 불러오는 중"
+          aria-valuetext="공공데이터를 불러오는 중"
+        >
+          <span class="loading-progress-bar" aria-hidden="true"></span>
+        </div>
         <p class="loading-message">{{ loadingMessage }}</p>
-        <div class="loading-dots" aria-hidden="true"><span></span><span></span><span></span></div>
       </div>
     </div>
   </Transition>
